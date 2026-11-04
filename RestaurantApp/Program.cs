@@ -27,23 +27,36 @@ namespace RestaurantApp
                 "ID", "Name", "Type", "Rating");
 
             Console.WriteLine(new string('-', 65));
+
             double averageRating = 0;
+            int count = 0;
+
             foreach (Restaurant restaurant in restaurants)
             {
-                Console.WriteLine(
-                    "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
-                    restaurant.Id,
-                    restaurant.Name,
-                    restaurant.Type,
-                    restaurant.Rating
-                );
-                averageRating += restaurant.Rating;
+                if (restaurant.Rating >= 4.5)
+                {
+                    Console.WriteLine(
+                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                        restaurant.Id,
+                        restaurant.Name,
+                        restaurant.Type,
+                        restaurant.Rating
+                    );
 
+                    averageRating += restaurant.Rating;
+                    count++;
+                }
             }
-            averageRating /= restaurants.Count;
-            Console.WriteLine();
-            Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
-            Console.WriteLine("Total restaurants: " + restaurants.Count);
+
+            if (count > 0)
+            {
+                averageRating /= count;
+                Console.WriteLine();
+                Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
+            }
+
+            Console.WriteLine("Total restaurants: " + count);
+
             Console.ReadKey();
         }
     }
