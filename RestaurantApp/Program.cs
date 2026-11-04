@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestaurantApp
 {
@@ -10,6 +11,7 @@ namespace RestaurantApp
         {
             Console.WriteLine("Hello master!");
             Console.WriteLine("Week2");
+            Console.WriteLine("Test Branch");
             Console.WriteLine();
 
             List<Restaurant> restaurants = new List<Restaurant>
@@ -29,33 +31,52 @@ namespace RestaurantApp
             Console.WriteLine(new string('-', 65));
 
             double averageRating = 0;
-            int count = 0;
 
             foreach (Restaurant restaurant in restaurants)
             {
-                if (restaurant.Rating >= 4.5)
-                {
-                    Console.WriteLine(
-                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
-                        restaurant.Id,
-                        restaurant.Name,
-                        restaurant.Type,
-                        restaurant.Rating
-                    );
+                Console.WriteLine(
+                    "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                    restaurant.Id,
+                    restaurant.Name,
+                    restaurant.Type,
+                    restaurant.Rating
+                );
 
-                    averageRating += restaurant.Rating;
-                    count++;
-                }
+                averageRating += restaurant.Rating;
             }
 
-            if (count > 0)
+            averageRating /= restaurants.Count;
+
+            Console.WriteLine();
+            Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
+            Console.WriteLine("Total restaurants: " + restaurants.Count);
+
+            var highRatedRestaurants = restaurants
+                .Where(r => r.Rating >= 4.5)
+                .ToList();
+
+            Console.WriteLine();
+            Console.WriteLine("========== High Rated Restaurants (Rating >= 4.5) ==========");
+
+            Console.WriteLine(
+                "{0,-5} {1,-25} {2,-22} {3,-10}",
+                "ID", "Name", "Type", "Rating");
+
+            Console.WriteLine(new string('-', 65));
+
+            foreach (Restaurant restaurant in highRatedRestaurants)
             {
-                averageRating /= count;
-                Console.WriteLine();
-                Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
+                Console.WriteLine(
+                    "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                    restaurant.Id,
+                    restaurant.Name,
+                    restaurant.Type,
+                    restaurant.Rating
+                );
             }
 
-            Console.WriteLine("Total restaurants: " + count);
+            Console.WriteLine();
+            Console.WriteLine("Total high rated restaurants: " + highRatedRestaurants.Count);
 
             Console.ReadKey();
         }
