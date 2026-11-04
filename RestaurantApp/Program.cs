@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestaurantApp
 {
@@ -57,7 +58,7 @@ namespace RestaurantApp
             }
 
             Console.WriteLine("Total restaurants: " + count);
-
+            
             Console.ReadKey();
         }
     }
