@@ -10,6 +10,7 @@ namespace RestaurantApp
         {
             Console.WriteLine("Hello master!");
             Console.WriteLine("Week2");
+            Console.WriteLine("Test Branch");
             Console.WriteLine();
 
             List<Restaurant> restaurants = new List<Restaurant>
