@@ -23,6 +23,44 @@ namespace RestaurantApp
                 new Restaurant(5, "Haidilao Hot Pot", "Hot Pot", 4.8)
             };
 
+            Console.WriteLine("========== Add New Restaurant ==========");
+
+            int newId = restaurants.Count + 1;
+
+            Console.Write("Enter restaurant name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter restaurant type: ");
+            string type = Console.ReadLine();
+
+            double rating;
+
+            while (true)
+            {
+                Console.Write("Enter restaurant rating (0-5): ");
+
+                if (double.TryParse(Console.ReadLine(), out rating)
+                    && rating >= 0 && rating <= 5)
+                {
+                    break;
+                }
+
+                Console.WriteLine("Invalid rating! Please enter a number between 0 and 5.");
+            }
+
+            Restaurant newRestaurant = new Restaurant(
+                newId,
+                name,
+                type,
+                rating
+            );
+
+            restaurants.Add(newRestaurant);
+
+            Console.WriteLine();
+            Console.WriteLine("Restaurant added successfully!");
+            Console.WriteLine();
+
             Console.WriteLine("======================== Restaurant List ========================");
             Console.WriteLine(
                 "{0,-5} {1,-25} {2,-22} {3,-10}",
@@ -50,6 +88,7 @@ namespace RestaurantApp
             Console.WriteLine();
             Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
             Console.WriteLine("Total restaurants: " + restaurants.Count);
+
 
             var highRatedRestaurants = restaurants
                 .Where(r => r.Rating >= 4.5)
