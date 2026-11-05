@@ -58,7 +58,48 @@ namespace RestaurantApp
             }
 
             Console.WriteLine("Total restaurants: " + count);
-            
+            // ======================== Summary ========================
+            Console.WriteLine();
+            Console.WriteLine("======================== Summary ========================");
+
+            if (restaurants.Count > 0)
+            {
+                double highestRating = restaurants.Max(r => r.Rating);
+                double lowestRating = restaurants.Min(r => r.Rating);
+
+                var highestRestaurant = restaurants
+                    .Where(r => r.Rating == highestRating);
+
+                var lowestRestaurant = restaurants
+                    .Where(r => r.Rating == lowestRating);
+
+                Console.WriteLine("Highest Rating:");
+                foreach (var restaurant in highestRestaurant)
+                {
+                    Console.WriteLine(
+                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                        restaurant.Id,
+                        restaurant.Name,
+                        restaurant.Type,
+                        restaurant.Rating
+                    );
+                }
+
+                Console.WriteLine();
+
+                Console.WriteLine("Lowest Rating:");
+                foreach (var restaurant in lowestRestaurant)
+                {
+                    Console.WriteLine(
+                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                        restaurant.Id,
+                        restaurant.Name,
+                        restaurant.Type,
+                        restaurant.Rating
+                    );
+                }
+            }
+
             Console.ReadKey();
         }
     }
