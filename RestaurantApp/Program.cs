@@ -69,9 +69,11 @@ namespace RestaurantApp
             Console.WriteLine(new string('-', 65));
 
             double averageRating = 0;
+            int count = 0;
 
             foreach (Restaurant restaurant in restaurants)
             {
+
                 Console.WriteLine(
                     "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
                     restaurant.Id,
@@ -81,9 +83,11 @@ namespace RestaurantApp
                 );
 
                 averageRating += restaurant.Rating;
+
             }
 
-            averageRating /= restaurants.Count;
+
+            averageRating /= count;
 
             Console.WriteLine();
             Console.WriteLine("Average rating: " + averageRating.ToString("F1"));
@@ -116,6 +120,50 @@ namespace RestaurantApp
 
             Console.WriteLine();
             Console.WriteLine("Total high rated restaurants: " + highRatedRestaurants.Count);
+
+            Console.WriteLine("Total restaurants: " + restaurants.Count);
+
+            Console.WriteLine();
+            Console.WriteLine("======================== Summary ========================");
+
+            if (restaurants.Count > 0)
+            {
+                double highestRating = restaurants.Max(r => r.Rating);
+                double lowestRating = restaurants.Min(r => r.Rating);
+
+                var highestRestaurant = restaurants
+                    .Where(r => r.Rating == highestRating);
+
+                var lowestRestaurant = restaurants
+                    .Where(r => r.Rating == lowestRating);
+
+                Console.WriteLine("Highest Rating:");
+                foreach (var restaurant in highestRestaurant)
+                {
+                    Console.WriteLine(
+                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                        restaurant.Id,
+                        restaurant.Name,
+                        restaurant.Type,
+                        restaurant.Rating
+                    );
+                }
+
+                Console.WriteLine();
+
+                Console.WriteLine("Lowest Rating:");
+                foreach (var restaurant in lowestRestaurant)
+                {
+                    Console.WriteLine(
+                        "{0,-5} {1,-25} {2,-22} {3,-10:F1}",
+                        restaurant.Id,
+                        restaurant.Name,
+                        restaurant.Type,
+                        restaurant.Rating
+                    );
+                }
+            }
+
 
             Console.ReadKey();
         }
